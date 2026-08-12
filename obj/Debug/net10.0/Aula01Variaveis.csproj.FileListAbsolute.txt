@@ -26,3 +26,4 @@ D:\Modulo2\DS\Aula01Variaveis\obj\Debug\net10.0\refint\Aula01Variaveis.dll
 D:\Modulo2\DS\Aula01Variaveis\obj\Debug\net10.0\Aula01Variaveis.pdb
 D:\Modulo2\DS\Aula01Variaveis\obj\Debug\net10.0\Aula01Variaveis.genruntimeconfig.cache
 D:\Modulo2\DS\Aula01Variaveis\obj\Debug\net10.0\ref\Aula01Variaveis.dll
+D:\Modulo2\DS\Aula01Variaveis\obj\Debug\net10.0\Aula01Variaveis.sourcelink.json
