@@ -1,117 +1,203 @@
-﻿//Aula 03 -  aprendendo modificações
-using System;
-using System.Diagnostics;
-using System.Runtime.Intrinsics.Arm;
+﻿using System;
+using System.Globalization;
 
 namespace SeuProjeto
 {
     public class Program
     {
-	static void Main(string[] args)
-	{
-         Console.WriteLine("Obeserve o menu abaixo e digite o número referente a opção desejada: ");
-         Console.WriteLine("1- Concatenar Palavras ");
-         Console.WriteLine("2- Verificar Dia Da Semana");
-         Console.WriteLine("3- Calcular Media");
-         Console.WriteLine("4- Calcular Tabuada ");
-
-        int opcaoEscolhida = int.Parse(Console.ReadLine());
-
-        switch (opcaoEscolhida)
+        public static void Main(string[] args)
         {
-            case 1:
-                ConcatenarPalavras();
-                break;
-            case 2:
-                VerificarAulaEtec();
-                break;
-            case 3: 
-                CalcularMedia();
-                break;
-            case 4:
-                CalcularTabuada();
-                break;
-            default:
-                Console.WriteLine("Opção Invalida");
-                break;
-        }
-        
-           
-	}        
+            Console.WriteLine("=== MENU DE EXERCÍCIOS ===");
+            Console.WriteLine("1 - Detalhar Data");
+            Console.WriteLine("2 - Calcular Desconto INSS");
+            Console.WriteLine("3 - Verificar Aula ETEC");
+            Console.WriteLine("4 - Calcular Tabuada");
+            Console.WriteLine("5 - Calcular Média");
+            Console.WriteLine("6 - Concatenar Palavras");
+            Console.Write("Escolha uma opção: ");
 
-public static void VerificarAulaEtec()
-        {
-            System.Console.WriteLine("digite a data");
-            DateTime data = DateTime.Parse(Console.ReadLine());
+            string opcao = Console.ReadLine();
+            Console.WriteLine("---------------------------");
 
-            if (data.DayOfWeek == DayOfWeek.Saturday || data.DayOfWeek == DayOfWeek.Sunday)
+            switch (opcao)
             {
-                System.Console.WriteLine("Final de semana! hoje não tem aula! revisarei exercicios!");
-            }
-               else
-            {
-                System.Console.WriteLine("dia de semana! bora pra etec");
-            }
-         
-        }
-    public static void CalcularTabuada()
-        {
-            System.Console.WriteLine("Digite a tabuada que deseja calcular:");
-            int tabuada = int.Parse(Console.ReadLine());
-            int contador = 0;
-
-            while (contador <= 10)
-            {
-                string mensagem = string.Format("{0} X {1} = {2}", tabuada, contador , tabuada*contador);
-                System.Console.WriteLine(mensagem);
-                contador++;
+                case "1":
+                    DetalharData();
+                    break;
+                case "2":
+                    CalcularDescontoINSS();
+                    break;
+                case "3":
+                    VerificarAulaEtec();
+                    break;
+                case "4":
+                    CalcularTabuada();
+                    break;
+                case "5":
+                    CalcularMedia();
+                    break;
+                case "6":
+                    ConcatenarPalavras();
+                    break;
+                default:
+                    Console.WriteLine("Opção inválida!");
+                    break;
             }
         }
 
-    public static void CalcularMedia()
+        // Tarefa 1 da Aula: Detalhar Data
+        public static void DetalharData()
         {
-            Console.WriteLine("Digite a primeira nota");
-            decimal nota1 = decimal.Parse(Console.ReadLine());
+            CultureInfo culturaPtBr = new CultureInfo("pt-BR");
 
-            Console.WriteLine("Digite a segunda nota");
-            decimal nota2 = decimal.Parse(Console.ReadLine());
+            Console.Write("Digite uma data (dd/MM/yyyy): ");
+            string entrada = Console.ReadLine();
 
-           decimal media = (nota1 + nota2) / 2;
-           Console.WriteLine ($"A media é {media}");
+            if (DateTime.TryParse(entrada, culturaPtBr, DateTimeStyles.None, out DateTime dataInformada))
+            {
+                string diaSemana = dataInformada.ToString("dddd", culturaPtBr);
+                diaSemana = culturaPtBr.TextInfo.ToTitleCase(diaSemana);
 
+                string mesExtenso = dataInformada.ToString("MMMM", culturaPtBr);
+                mesExtenso = culturaPtBr.TextInfo.ToTitleCase(mesExtenso);
 
-            if(media >= 7)
-            Console.WriteLine("aprovado");
+                Console.WriteLine($"\nDia da Semana: {diaSemana}");
+                Console.WriteLine($"Mês: {mesExtenso}");
 
-    
-            else if (media < 7 && media >= 4)
-            Console.WriteLine("Recuperação");
-
+                if (dataInformada.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    string horaAtual = DateTime.Now.ToString("HH:mm");
+                    Console.WriteLine($"Hora atual: {horaAtual}");
+                }
+            }
             else
-            Console.WriteLine("reprovado");
-
+            {
+                Console.WriteLine("Data inválida! Por favor, digite no formato correto (ex: 15/03/2026).");
+            }
         }
 
-public static void ConcatenarPalavras(){
+        // Tarefa 2 da Aula: Calcular Desconto INSS 2026
+        public static void CalcularDescontoINSS()
+        {
+            Console.Write("Digite o valor do salário bruto: R$ ");
+            if (decimal.TryParse(Console.ReadLine(), out decimal salario))
+            {
+                decimal aliquota = 0m;
 
+                if (salario <= 1621.00m)
+                {
+                    aliquota = 0.075m; 
+                }
+                else if (salario <= 2902.84m)
+                {
+                    aliquota = 0.09m;  
+                }
+                else if (salario <= 4354.27m)
+                {
+                    aliquota = 0.12m;  
+                }
+                else if (salario <= 8475.55m)
+                {
+                    aliquota = 0.14m;  
+                }
+                else
+                {
+                    aliquota = 0.14m;  
+                }
 
-Console.WriteLine("Digite seu nome: ");
-string nome = Console.ReadLine();
+                decimal valorInss = salario * aliquota;
+                decimal salarioDescontado = salario - valorInss;
 
-string frase1 = $"Olá {nome}, hoje é {DateTime.Now}";
-Console.WriteLine(frase1);
+                Console.WriteLine($"\n--- Resultado do Cálculo ---");
+                Console.WriteLine($"Alíquota aplicada: {aliquota * 100}%");
+                Console.WriteLine($"Valor do INSS a pagar: {valorInss:C2}");
+                Console.WriteLine($"Salário com desconto do INSS: {salarioDescontado:C2}");
+            }
+            else
+            {
+                Console.WriteLine("Valor de salário inválido!");
+            }
+        }
 
-Console.WriteLine("===========================");
+        public static void VerificarAulaEtec()
+        {
+            Console.WriteLine("Digite a data:");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime data))
+            {
+                if (data.DayOfWeek == DayOfWeek.Saturday || data.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    Console.WriteLine("Final de semana! Hoje não tem aula! Revisarei exercícios!");
+                }
+                else
+                {
+                    Console.WriteLine("Dia de semana! Bora pra ETEC!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Data em formato inválido!");
+            }
+        }
 
-Console.WriteLine("Quanto custa um dólar em reais?");
-decimal ValorDolarReais = decimal.Parse(Console.ReadLine());
-string frase2 = string.Format("Hoje é {0:dd/MM/yyyy}, o dólar está custando {1:c2}", DateTime.Now, ValorDolarReais);
-Console.WriteLine(frase2);
+        public static void CalcularTabuada()
+        {
+            Console.WriteLine("Digite a tabuada que deseja calcular:");
+            if (int.TryParse(Console.ReadLine(), out int tabuada))
+            {
+                int contador = 0;
+                while (contador <= 10)
+                {
+                    string mensagem = string.Format("{0} X {1} = {2}", tabuada, contador, tabuada * contador);
+                    Console.WriteLine(mensagem);
+                    contador++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Número inválido!");
+            }
+        }
 
-Console.WriteLine("===========================");
+        public static void CalcularMedia()
+        {
+            Console.WriteLine("Digite a primeira nota:");
+            decimal.TryParse(Console.ReadLine(), out decimal nota1);
 
-string cabecalho = string.Format("{0:dddd}, {0:dd} de {0:MMMM} de {0:yy} - {0:HH:mm:ss}", DateTime.Now);
-Console.WriteLine(cabecalho);
-}
+            Console.WriteLine("Digite a segunda nota:");
+            decimal.TryParse(Console.ReadLine(), out decimal nota2);
+
+            decimal media = (nota1 + nota2) / 2;
+            Console.WriteLine($"A média é {media}");
+
+            if (media >= 7)
+                Console.WriteLine("Aprovado");
+            else if (media >= 4)
+                Console.WriteLine("Recuperação");
+            else
+                Console.WriteLine("Reprovado");
+        }
+
+        public static void ConcatenarPalavras()
+        {
+            Console.WriteLine("Digite seu nome: ");
+            string nome = Console.ReadLine();
+
+            string frase1 = $"Olá {nome}, hoje é {DateTime.Now}";
+            Console.WriteLine(frase1);
+
+            Console.WriteLine("===========================");
+
+            Console.WriteLine("Quanto custa um dólar em reais?");
+            if (decimal.TryParse(Console.ReadLine(), out decimal ValorDolarReais))
+            {
+                string frase2 = string.Format("Hoje é {0:dd/MM/yyyy}, o dólar está custando {1:c2}", DateTime.Now, ValorDolarReais);
+                Console.WriteLine(frase2);
+            }
+
+            Console.WriteLine("===========================");
+
+            string cabecalho = string.Format("{0:dddd}, {0:dd} de {0:MMMM} de {0:yy} - {0:HH:mm:ss}", DateTime.Now);
+            Console.WriteLine(cabecalho);
+        }
     }
 }

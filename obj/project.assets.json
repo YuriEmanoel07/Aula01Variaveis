@@ -8,24 +8,32 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\emano\\.nuget\\packages\\": {}
+    "D:\\NugetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Modulo2\\DS\\Aula01Variaveis\\Aula01Variaveis.csproj",
+      "projectUniqueName": "C:\\Users\\etechas\\Aula01Variaveis\\Aula01Variaveis.csproj",
       "projectName": "Aula01Variaveis",
-      "projectPath": "D:\\Modulo2\\DS\\Aula01Variaveis\\Aula01Variaveis.csproj",
-      "packagesPath": "C:\\Users\\emano\\.nuget\\packages\\",
-      "outputPath": "D:\\Modulo2\\DS\\Aula01Variaveis\\obj\\",
+      "projectPath": "C:\\Users\\etechas\\Aula01Variaveis\\Aula01Variaveis.csproj",
+      "packagesPath": "D:\\NugetPackages",
+      "outputPath": "C:\\Users\\etechas\\Aula01Variaveis\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\emano\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\etechas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
